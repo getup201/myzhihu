@@ -11,10 +11,7 @@ Auth:
   RefreshExpire: 2592000
   RefreshAfter: 604800
 #阿里云配置文件
-Oss:
-  Endpoint: oss-cn-guangzhou.aliyuncs.com
 
-  BucketName: myzhihu
 ArticleRPC:
   Etcd:
     Hosts:
