@@ -10,8 +10,12 @@ Auth:
   RefreshSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   RefreshExpire: 2592000
   RefreshAfter: 604800
-#阿里云配置文件
-
+#阿里云配置文件  这里上传github不能泄漏敏感信息
+Oss:
+  Endpoint: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  AccessKeyId: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  AccessKeySecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  BucketName: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ArticleRPC:
   Etcd:
     Hosts:
