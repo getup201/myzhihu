@@ -1,0 +1,42 @@
+Name: mq
+KqConsumerConf:
+  Name: article-kq-consumer
+  Brokers:
+    - 127.0.0.1:9092
+  Group: group-myzhihu-like
+  Topic: topic-myzhihu-like
+  Offset: last
+  Consumers: 1
+  Processors: 1
+ArticleKqConsumerConf:
+  Name: article-cache-kq-consumer
+  Brokers:
+    - 127.0.0.1:9092
+  Group: group-article
+  Topic: topic-article
+  Offset: last
+  Consumers: 1
+  Processors: 1
+Datasource: root:root1234@tcp(127.0.0.1:3306)/myzhihu_article?parseTime=true
+BizRedis:
+  Host: 127.0.0.1:6379
+  Pass:
+  Type: node
+# es配置文件 密码是首次执行时返回的 要自己保存起来
+Es:
+  Addresses:
+    - http://localhost:9200/
+  Username: elastic
+  Password: u5JIsh-Ts0mOQYTtf9p4
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9101
+  Path: /metrics
+Telemetry:
+  Endpoint: http://127.0.0.1:14268/api/traces
+UserRPC:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: user.rpc
+  NonBlock: true

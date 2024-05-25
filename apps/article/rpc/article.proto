@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package pb;
+option go_package="./pb";
+
+// 一开始 只有一个接口就是发布文章 
+service Article {
+  rpc Publish(PublishRequest) returns (PublishResponse);
+  rpc Articles(ArticlesRequest) returns (ArticlesResponse);
+  rpc ArticleDelete(ArticleDeleteRequest) returns (ArticleDeleteResponse);
+  rpc ArticleDetail(ArticleDetailRequest) returns (ArticleDetailResponse);
+}
+
+message PublishRequest {
+  int64 userId = 1;
+  string title = 2;
+  string content = 3;
+  string description = 4;
+  string cover = 5;
+}
+
+message PublishResponse {
+  int64 articleId = 1;
+}
+
+//输入请求 上一页返回的cursor  请求下一页时需要这个
+message ArticlesRequest {
+  int64 userId = 1;
+  int64 cursor = 2;
+  int64 pageSize = 3;
+  int32 sortType = 4;
+  int64 articleId = 5;
+}
+
+
+//返回响应  isEnd为true时 前端不会继续请求   游标cursor当前页的最后一条（发布时间或者点赞数）
+message ArticlesResponse {
+  repeated ArticleItem articles = 1;
+  bool isEnd = 2;
+  int64 cursor = 3;
+  int64 articleId = 4;
+}
+
+message ArticleItem {
+  int64 Id = 1;
+  string title = 2;
+  string content = 3;
+  string description = 4;
+  string cover = 5;
+  int64 commentCount = 6;
+  int64 likeCount = 7;
+  int64 publishTime = 8;
+  int64 authorId = 9;
+}
+
+
+message ArticleDeleteRequest {
+  int64 userId = 1;
+  int64 articleId = 2;
+}
+
+message ArticleDeleteResponse {
+}
+
+message ArticleDetailRequest {
+  int64 articleId = 1;
+}
+
+message ArticleDetailResponse {
+  ArticleItem article = 1;
+}

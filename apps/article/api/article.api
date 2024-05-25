@@ -1,0 +1,32 @@
+syntax = "v1"
+
+// 如果你没有在 .api 文件中明确指定请求体的格式，那么 GoZero 默认会期望 JSON 格式的请求体。
+// 通常，在 RESTful API 中，JSON 是最常用的数据交换格式，因为它简洁、易读且易于解析。
+//`json:"cover_url"` 指定了为json格式
+type (
+	UploadCoverResponse {
+		CoverUrl string `json:"cover_url"`
+	}
+	PublishRequest {
+		Title       string `json:"title"`
+		Content     string `json:"content"`
+		Description string `json:"description"`
+		Cover       string `json:"cover"`
+	}
+	PublishResponse {
+		ArticleId int64 `json:"article_id"`
+	}
+)
+
+@server (
+	prefix: /v1/article
+	jwt:    Auth
+)
+service article-api {
+	@handler UploadCoverHandler
+	post /upload/cover returns (UploadCoverResponse)
+
+	@handler PublishHandler
+	post /publish (PublishRequest) returns (PublishResponse)
+}
+

@@ -1,0 +1,13 @@
+# 消费者配置   消息 要配置Group和Topic
+# group 不需要提前创建 直接声明就行  但是Topic要提前创建
+# mq服务 作为kafka消息的 消费端
+Name: mq
+KqConsumerConf:
+  Name: like-kq-consumer
+  Brokers:
+    - 127.0.0.1:9092
+  Group: group-myzhihu-like
+  Topic: topic-myzhihu-like
+  Offset: last
+  Consumers: 1
+  Processors: 1

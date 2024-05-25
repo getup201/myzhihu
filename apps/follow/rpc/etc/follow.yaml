@@ -1,0 +1,26 @@
+Name: follow.rpc
+ListenOn: 0.0.0.0:8081
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: follow.rpc
+DB:
+  DataSource: "root:root1234@tcp(127.0.0.1:3306)/myzhihu_follow?parseTime=true&loc=Local"
+  MaxIdleConns: 10
+  MaxOpenConns: 100
+  ConnMaxLifetime: 3600
+BizRedis:
+  Host: 127.0.0.1:6379
+  Pass:
+  Type: node
+  # Prometheus主要是用来指标监控的 统计耗时 QPS等
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9101
+  Path: /metrics
+Telemetry:
+  Endpoint: http://127.0.0.1:14268/api/traces
+
+
+
+

@@ -1,0 +1,35 @@
+#artile rpc 的yaml配置文件
+#主要有 鉴权Secret Oss配置 所调用的rpc ArticleRPC UserRPC 和额外中间件Prometheus
+#注意各rpc的端口不能冲突
+Name: article-api
+Host: 0.0.0.0
+Port: 8686
+Auth:
+  AccessSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  AccessExpire: 604800
+  RefreshSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  RefreshExpire: 2592000
+  RefreshAfter: 604800
+#阿里云配置文件
+Oss:
+  Endpoint: oss-cn-guangzhou.aliyuncs.com
+  AccessKeyId: LTAI5tAR8hGktbbarm5EhLdW
+  AccessKeySecret: RVK4S8oFpVwJRrmGUGsKZT0lmalvGl
+  BucketName: myzhihu
+ArticleRPC:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: article.rpc
+  NonBlock: true
+UserRPC:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: user.rpc
+  NonBlock: true
+# 先不加
+# Prometheus:
+#   Host: 0.0.0.0
+#   Port: 9101
+#   Path: /metrics

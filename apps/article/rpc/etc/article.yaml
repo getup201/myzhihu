@@ -1,0 +1,32 @@
+#artile rpc 的yaml配置文件
+#主要有etcd 数据库 redis 额外中间件Consul Prometheus
+Name: article.rpc
+ListenOn: 0.0.0.0:9090
+# Mode设置为test 才能 启动反射服务 
+Mode: test
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: article.rpc
+# DataSource: root:root1234@tcp(127.0.0.1:3306)/myzhihu_article?parseTime=true&loc=Local  #其中 loc=Local是设置时区  
+DataSource: root:root1234@tcp(127.0.0.1:3306)/myzhihu_article?parseTime=true
+CacheRedis:
+  - Host: 127.0.0.1:6379
+    Pass:
+    Type: node
+BizRedis:
+  Host: 127.0.0.1:6379
+  Pass:
+  Type: node
+# 先不加
+# Consul:
+#   Host: 127.0.0.1:8500
+#   Key: article-rpc
+#   Meta:
+#     env: test
+#     service_group: beyond
+#     service_name: article-rpc
+# Prometheus:
+#   Host: 0.0.0.0
+#   Port: 9102
+#   Path: /metrics

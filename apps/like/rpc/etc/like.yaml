@@ -1,0 +1,15 @@
+Name: like.rpc
+ListenOn: 0.0.0.0:8787
+# 端口号不能冲突
+# Mode设置为test 才能 启动反射服务 这是使用grpcurl才需要的
+# Topic 要配置正确  且Topic要提前创建
+Mode: test
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: like.rpc
+  # 生产者配置
+KqPusherConf:
+  Brokers:
+    - 127.0.0.1:9092
+  Topic: topic-myzhihu-like
