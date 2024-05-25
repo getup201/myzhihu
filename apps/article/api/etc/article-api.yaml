@@ -13,8 +13,8 @@ Auth:
 #阿里云配置文件
 Oss:
   Endpoint: oss-cn-guangzhou.aliyuncs.com
-  AccessKeyId: LTAI5tAR8hGktbbarm5EhLdW
-  AccessKeySecret: RVK4S8oFpVwJRrmGUGsKZT0lmalvGl
+  AccessKeyId: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  AccessKeySecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   BucketName: myzhihu
 ArticleRPC:
   Etcd:
