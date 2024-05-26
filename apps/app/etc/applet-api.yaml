@@ -19,3 +19,7 @@ BizRedis:
   Host: 127.0.0.1:6379
   Pass:
   Type: node
+#WxMiniConf 微信小程序配置
+WxMiniConf:
+  AppId: wxaxxxxxxxxxx
+  Secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx

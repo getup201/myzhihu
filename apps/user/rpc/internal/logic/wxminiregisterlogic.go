@@ -76,8 +76,8 @@ func (l *WxMiniRegisterLogic) WxMiniRegister(in *service.WxMiniRegisterRequest) 
 	// 生成token 这里用pkg中的token生成方法 参考login 的api
 	//登录会返回一个jwt token
 	token, err := jwt.BuildTokens(jwt.TokenOptions{
-		AccessSecret: l.svcCtx.Config.Auth.AccessSecret,
-		AccessExpire: l.svcCtx.Config.Auth.AccessExpire,
+		AccessSecret: l.svcCtx.Config.JwtAuth.AccessSecret,
+		AccessExpire: l.svcCtx.Config.JwtAuth.AccessExpire,
 		Fields: map[string]interface{}{
 			"userId": userId,
 		},

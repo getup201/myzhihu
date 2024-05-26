@@ -9,17 +9,14 @@ CacheRedis:
   - Host: 127.0.0.1:6379
     Pass:
     Type: node
-Auth:
-  #jwt验证的密钥
-  AccessSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  AccessExpire: 604800
-  RefreshSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  RefreshExpire: 2592000
-  RefreshAfter: 604800
 BizRedis:
   Host: 127.0.0.1:6379
   Pass:
   Type: node
+JwtAuth:
+  #jwt验证的密钥
+  AccessSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  AccessExpire: 604800
 # Consul:
 #   Host: 127.0.0.1:8500
 #   Key: user-rpc

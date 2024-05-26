@@ -35,6 +35,7 @@ func NewWxMiniAuthLogic(ctx context.Context, svcCtx *svc.ServiceContext) *WxMini
 func (l *WxMiniAuthLogic) WxMiniAuth(req *types.WXMIniAuthRequest) (resp *types.WXMiniAuthResponse, err error) {
 	// todo: add your logic here and delete this line
 	//1、Wechat-Mini 初始化小程序对象
+
 	miniprogram := wechat.NewWechat().GetMiniProgram(&miniConfig.Config{
 		AppID:     l.svcCtx.Config.WxMiniConf.AppId,
 		AppSecret: l.svcCtx.Config.WxMiniConf.Secret,
@@ -47,13 +48,13 @@ func (l *WxMiniAuthLogic) WxMiniAuth(req *types.WXMIniAuthRequest) (resp *types.
 		logx.Errorf("发起授权请求失败 error: %v , code : %s  , authResult : %+v", err, req.Code, authResult)
 		return nil, err
 	}
-	//2、Parsing WeChat-Mini return data
+	// fmt.Println("授权成功")
+	//2、Parsing WeChat-Mini return data 解析小程序返回的数据
 	userData, err := miniprogram.GetEncryptor().Decrypt(authResult.SessionKey, req.EncryptedData, req.IV)
 	if err != nil {
 		logx.Errorf("解析数据失败 req : %+v , err: %v , authResult:%+v ", req, err, authResult)
 		return nil, err
 	}
-
 	//3、bind user or login.
 	// 检查用户是否存在
 	var userId int64
