@@ -15,7 +15,7 @@ type (
 		UserId int64 `json:"user_id"`
 		Token  Token `json:"token"`
 	}
-    //请求的输入就一个参数 mobile
+	//请求的输入就一个参数 mobile
 	VerificationRequest {
 		Mobile string `json:"mobile"`
 	}
@@ -34,12 +34,12 @@ type (
 		Avatar   string `json:"avatar"`
 	}
 	//微信小程序
-	WXMIniAuthRequest{
-		Code 			string `json:"code"`
-		IV 				string `json:"iv"`
-		EncryptedData 	string `json:"encryptedData"`
+	WXMIniAuthRequest {
+		Code          string `json:"code"`
+		IV            string `json:"iv"`
+		EncryptedData string `json:"encryptedData"`
 	}
-	WXMiniAuthResponse{
+	WXMiniAuthResponse {
 		UserId int64 `json:"userId"`
 		Token  Token `json:"token"`
 	}
@@ -65,24 +65,19 @@ service applet-api {
 	prefix:    /v1/user
 	signature: true
 	jwt:       Auth
-	//这个中间件会检查请求的 HTTP 头部中是否包含有效的 JWT。如果包含并且有效，请求将继续进行；如果不包含或不有效，请求将被拒绝。
+//这个中间件会检查请求的 HTTP 头部中是否包含有效的 JWT。如果包含并且有效，请求将继续进行；如果不包含或不有效，请求将被拒绝。
 )
 service applet-api {
 	@handler UserInfoHandler
 	get /info returns (UserInfoResponse)
-	
+
 	//后面增加的部分
 	@doc "wechat mini auth"
-	@handler wxMiniAuth 
+	@handler wxMiniAuth
 	post /wxMiniAuth (WXMIniAuthRequest) returns (WXMiniAuthResponse)
-	
 }
 
-
 // 在使用GoZero框架构建的BFF (Backend for Frontend) 应用程序中，当你需要调用一个远程服务，比如 userRpc，你通常会在服务层代码中进行这个调用。以下是在GoZero框架中调用RPC服务的一般步骤：
-
 // 定义RPC客户端接口：首先，你需要在 .proto 文件中定义你的RPC服务接口。然后使用 protoc 工具生成Go代码。
-
 // 在服务上下文中初始化RPC客户端：在GoZero中，你通常会在 servicecontext.go 文件中初始化RPC客户端。这个文件通常位于 service 文件夹内。
-
 // 在逻辑层调用RPC方法：在 logic 文件夹中的相应逻辑文件中，你将调用RPC方法。逻辑文件通常对应于你的API端点。

@@ -1,15 +1,58 @@
 syntax = "proto3";
 
 package service;
-option go_package="./service";
+option go_package="./service";  //生成的文件 放在哪里
 
 service User {
   rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc wxMiniRegister(wxMiniRegisterRequest) returns (wxMiniRegisterResponse);
   rpc FindById(FindByIdRequest) returns (FindByIdResponse);
   rpc FindByMobile(FindByMobileRequest) returns (FindByMobileResponse);
   rpc SendSms(SendSmsRequest) returns (SendSmsResponse);
+  // 增加 getUserAuthByAuthKey 和 getUserAuthByUserId
+  rpc getUserAuthByAuthKey(GetUserAuthByAuthKeyRequest) returns(GetUserAuthByAuthKeyResponse);
+  rpc getUserAuthByUserId(GetUserAuthByUserIdRequest) returns(GetUserAuthyUserIdResponse);
 }
 
+
+//微信小程序 req 、resp
+message wxMiniRegisterRequest {
+  string mobile = 1;
+  string password = 2;
+  string authKey = 3;
+  string authType = 4;
+}
+
+message wxMiniRegisterResponse {
+  int64 UserId = 1;
+  string accessToken = 2;
+  int64  accessExpire = 3;
+}
+
+message UserAuth {
+  int64  id = 1;
+  int64  userId = 2;
+  string authType = 3;
+  string authKey = 4;
+}
+
+message GetUserAuthByAuthKeyRequest{
+  string  authKey = 1;
+  string  authType = 2;
+}
+
+message GetUserAuthByAuthKeyResponse{
+  UserAuth userAuth = 1;
+}
+
+message GetUserAuthByUserIdRequest{
+  int64  userId = 1;
+  string  authType = 2;
+}
+
+message GetUserAuthyUserIdResponse{
+  UserAuth userAuth = 1;
+}
 
 message RegisterRequest {
   string username = 1;

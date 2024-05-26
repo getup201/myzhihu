@@ -52,6 +52,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 func (l *LoginLogic) Login(req *types.LoginRequest) (*types.LoginResponse, error) {
 	//strings.TrimSpace 是 Go 语言中 strings 包提供的一个函数，用于去除字符串开头和结尾的空白字符（包括空格、制表符和换行符等）。
+	// gozerolooklook 的login 逻辑大部分在rpc中写的api只调用一下   我这里全部是在api中写的
 	req.Mobile = strings.TrimSpace(req.Mobile)
 	if len(req.Mobile) == 0 {
 		return nil, code.LoginMobileEmpty

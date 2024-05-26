@@ -40,3 +40,14 @@ type VerificationRequest struct {
 
 type VerificationResponse struct {
 }
+
+type WXMIniAuthRequest struct {
+	Code          string `json:"code"`
+	IV            string `json:"iv"`
+	EncryptedData string `json:"encryptedData"`
+}
+
+type WXMiniAuthResponse struct {
+	UserId int64 `json:"userId"`
+	Token  Token `json:"token"`
+}

@@ -28,7 +28,8 @@ var (
 
 type (
 	userModel interface {
-		Insert(ctx context.Context, data *User) (sql.Result, error)
+		Trans(ctx context.Context, fn func(context context.Context, session sqlx.Session) error) error
+		Insert(ctx context.Context, session sqlx.Session, data *User) (sql.Result, error)
 		FindOne(ctx context.Context, id int64) (*User, error)
 		FindOneByMobile(ctx context.Context, mobile string) (*User, error)
 		Update(ctx context.Context, data *User) error
@@ -89,6 +90,14 @@ func (m *defaultUserModel) FindOne(ctx context.Context, id int64) (*User, error)
 	}
 }
 
+func (m *defaultUserModel) Trans(ctx context.Context, fn func(ctx context.Context, session sqlx.Session) error) error {
+
+	return m.TransactCtx(ctx, func(ctx context.Context, session sqlx.Session) error {
+		return fn(ctx, session)
+	})
+
+}
+
 func (m *defaultUserModel) FindOneByMobile(ctx context.Context, mobile string) (*User, error) {
 	myzhihuUserUserMobileKey := fmt.Sprintf("%s%v", cacheMyzhihuUserUserMobilePrefix, mobile)
 	var resp User
@@ -109,11 +118,14 @@ func (m *defaultUserModel) FindOneByMobile(ctx context.Context, mobile string) (
 	}
 }
 
-func (m *defaultUserModel) Insert(ctx context.Context, data *User) (sql.Result, error) {
+func (m *defaultUserModel) Insert(ctx context.Context, session sqlx.Session, data *User) (sql.Result, error) {
 	myzhihuUserUserIdKey := fmt.Sprintf("%s%v", cacheMyzhihuUserUserIdPrefix, data.Id)
 	myzhihuUserUserMobileKey := fmt.Sprintf("%s%v", cacheMyzhihuUserUserMobilePrefix, data.Mobile)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?)", m.table, userRowsExpectAutoSet)
+		if session != nil {
+			return session.ExecCtx(ctx, query,  data.Mobile, data.Avatar, data.Username,)
+		}
 		return conn.ExecCtx(ctx, query, data.Username, data.Avatar, data.Mobile)
 	}, myzhihuUserUserIdKey, myzhihuUserUserMobileKey)
 	return ret, err

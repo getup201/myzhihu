@@ -10,6 +10,7 @@ import (
 	"myzhihu/apps/user/rpc/service"
 
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/stores/sqlx"
 )
 
 type RegisterLogic struct {
@@ -32,22 +33,34 @@ func (l *RegisterLogic) Register(in *service.RegisterRequest) (*service.Register
 		return nil, code.RegisterNameEmpty
 	}
 
-	//插入到数据库中  这个是gozero 自动生成的方法
-	ret, err := l.svcCtx.UserModel.Insert(l.ctx, &model.User{
-		Username:   in.Username,
-		Mobile:     in.Mobile,
-		Avatar:     in.Avatar,
-		CreateTime: time.Now(),
-		UpdateTime: time.Now(),
-	})
-	if err != nil {
-		logx.Errorf("Register req: %v error: %v", in, err)
-		return nil, err
-	}
-	//		//LastInsertId 方法返回一个 int64 类型的值，表示数据库中最近一次插入操作生成的自增 ID。
-	userId, err := ret.LastInsertId()
-	if err != nil {
-		logx.Errorf("LastInsertId error: %v", err)
+	//插入到数据库中  这个是gozero 自动生成的方法  这个版本是没加session的 不支持事务 参考looklook 格式如下
+	// if err := l.svcCtx.UserModel.Trans(l.ctx, func(ctx context.Context, session sqlx.Session) error {
+
+	// }); err != nil {
+	// 	return nil, err
+	// }
+	var userId int64
+	if err := l.svcCtx.UserModel.Trans(l.ctx, func(ctx context.Context, session sqlx.Session) error {
+		ret, err := l.svcCtx.UserModel.Insert(l.ctx, session, &model.User{
+			Username:   in.Username,
+			Mobile:     in.Mobile,
+			Avatar:     in.Avatar,
+			CreateTime: time.Now(),
+			UpdateTime: time.Now(),
+		})
+		if err != nil {
+			logx.Errorf("Register req: %v error: %v", in, err)
+			return err
+		}
+		//LastInsertId 方法返回一个 int64 类型的值，表示数据库中最近一次插入操作生成的自增 ID。
+		lastId, err := ret.LastInsertId()
+		userId = lastId
+		if err != nil {
+			logx.Errorf("LastInsertId error: %v", err)
+			return err
+		}
+		return nil
+	}); err != nil {
 		return nil, err
 	}
 

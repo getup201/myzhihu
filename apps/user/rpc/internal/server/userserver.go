@@ -27,6 +27,11 @@ func (s *UserServer) Register(ctx context.Context, in *service.RegisterRequest) 
 	return l.Register(in)
 }
 
+func (s *UserServer) WxMiniRegister(ctx context.Context, in *service.WxMiniRegisterRequest) (*service.WxMiniRegisterResponse, error) {
+	l := logic.NewWxMiniRegisterLogic(ctx, s.svcCtx)
+	return l.WxMiniRegister(in)
+}
+
 func (s *UserServer) FindById(ctx context.Context, in *service.FindByIdRequest) (*service.FindByIdResponse, error) {
 	l := logic.NewFindByIdLogic(ctx, s.svcCtx)
 	return l.FindById(in)
@@ -40,4 +45,15 @@ func (s *UserServer) FindByMobile(ctx context.Context, in *service.FindByMobileR
 func (s *UserServer) SendSms(ctx context.Context, in *service.SendSmsRequest) (*service.SendSmsResponse, error) {
 	l := logic.NewSendSmsLogic(ctx, s.svcCtx)
 	return l.SendSms(in)
+}
+
+// 增加 getUserAuthByAuthKey 和 getUserAuthByUserId
+func (s *UserServer) GetUserAuthByAuthKey(ctx context.Context, in *service.GetUserAuthByAuthKeyRequest) (*service.GetUserAuthByAuthKeyResponse, error) {
+	l := logic.NewGetUserAuthByAuthKeyLogic(ctx, s.svcCtx)
+	return l.GetUserAuthByAuthKey(in)
+}
+
+func (s *UserServer) GetUserAuthByUserId(ctx context.Context, in *service.GetUserAuthByUserIdRequest) (*service.GetUserAuthyUserIdResponse, error) {
+	l := logic.NewGetUserAuthByUserIdLogic(ctx, s.svcCtx)
+	return l.GetUserAuthByUserId(in)
 }

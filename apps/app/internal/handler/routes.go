@@ -38,9 +38,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/info",
 				Handler: UserInfoHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/wxMiniAuth",
+				Handler: wxMiniAuthHandler(serverCtx),
+			},
 		},
-		// JWT鉴权
-		// WithJwt returns a func to enable jwt authentication in given route.
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithSignature(serverCtx.Config.Signature),
 		rest.WithPrefix("/v1/user"),
