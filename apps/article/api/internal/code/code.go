@@ -9,6 +9,8 @@ var (
 	ArtitleTitleEmpty         = xcode.New(30004, "文章标题为空")
 	ArticleContentTooFewWords = xcode.New(30005, "文章内容字数过少")
 	ArticleCoverEmpty         = xcode.New(30006, "文章封面为空")
+	ArticleIdEmpty            = xcode.New(30007, "文章Id为空")
+	ArticleNOtFound           = xcode.New(30008, "文章不存在")
 )
 
 // code的结构

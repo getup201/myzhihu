@@ -60,5 +60,5 @@ func genFilename(filename string) string {
 }
 
 func genFileURL(objectKey string) string {
-	return fmt.Sprintf("https://beyond-article.oss-cn-shanghai.aliyuncs.com/%s", objectKey)
+	return fmt.Sprintf("https://myzhihu-article.oss-cn-guangzhou.aliyuncs.com/%s", objectKey)
 }

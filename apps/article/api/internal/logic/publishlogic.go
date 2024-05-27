@@ -47,7 +47,7 @@ func (l *PublishLogic) Publish(req *types.PublishRequest) (*types.PublishRespons
 		return nil, xcode.NoLogin
 	}
 
-	//调用article rpc来发布
+	//调用article rpc来发布 底层逻辑在rpc部分
 	pret, err := l.svcCtx.ArticleRPC.Publish(l.ctx, &pb.PublishRequest{
 		UserId:      userId,
 		Title:       req.Title,

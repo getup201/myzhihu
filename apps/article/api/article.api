@@ -16,6 +16,41 @@ type (
 	PublishResponse {
 		ArticleId int64 `json:"article_id"`
 	}
+	ArticlesRequest {
+		Cursor    int64 `json:"cursor"`
+		PageSize  int64 `json:"page_size"`
+		SortType  int32 `json:"sort_type"`
+		ArticleId int64 `json:"article_id"`
+	}
+	ArticleItem {
+		Id           int64  `json:"id"`
+		Title        string `json:"title"`
+		Content      string `json:"content"`
+		Description  string `json:"description"`
+		Cover        string `json:"cover"`
+		CommentCount int64  `json:"comment_count"`
+		LikeCount    int64  `json:"like_count"`
+		PublishTime  int64  `json:"publish_time"`
+		AuthorId     int64  `json:"author_id"`
+	}
+	ArticlesResponse {
+		Articles  []ArticleItem `json:"articles"`
+		IsEnd     bool          `json:"is_end"`
+		Cursor    int64         `json:"cursor"`
+		ArticleId int64         `json:"article_id"`
+	}
+	ArticleDetailRequest {
+		ArticleId int64 `json:"article_id"`
+	}
+	ArticleDetailResponse {
+		Article ArticleItem `json:"article_item"`
+	}
+	DeleteArticleRequest {
+		ArticleId int64 `json:"article_id"`
+	}
+	DeleteArticleResponse {
+		DeleteMessage string `json:"delete_message"`
+	}
 )
 
 @server (
@@ -28,5 +63,16 @@ service article-api {
 
 	@handler PublishHandler
 	post /publish (PublishRequest) returns (PublishResponse)
+
+	//后面新增 文章详情 文章列表 删除文章的api
+	// 这些操作都要 jwt鉴权
+	@handler ArticlesHandler
+	post /articles (ArticlesRequest) returns (ArticlesResponse)
+
+	@handler ArticleDetailHandler
+	post /articleDetail (ArticleDetailRequest) returns (ArticleDetailResponse)
+
+	@handler DeleteArticleHandler
+	post /deleteArticle (DeleteArticleRequest) returns (DeleteArticleResponse)
 }
 

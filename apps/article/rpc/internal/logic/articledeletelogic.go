@@ -26,7 +26,8 @@ func NewArticleDeleteLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Art
 	}
 }
 
-// 传入用户id和文章id 看是删除哪个用户的那篇文章
+// 传入用户id和文章id   看是删除哪个用户的那篇文章
+// 没有对应api 应该加上
 func (l *ArticleDeleteLogic) ArticleDelete(in *pb.ArticleDeleteRequest) (*pb.ArticleDeleteResponse, error) {
 	if in.UserId <= 0 {
 		return nil, code.UserIdInvalid
