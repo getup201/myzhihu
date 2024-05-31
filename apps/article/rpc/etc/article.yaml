@@ -1,7 +1,7 @@
 #artile rpc 的yaml配置文件
 #主要有etcd 数据库 redis 额外中间件Consul Prometheus
 Name: article.rpc
-ListenOn: 0.0.0.0:9090
+ListenOn: 0.0.0.0:8787
 # Mode设置为test 才能 启动反射服务 
 Mode: test
 Etcd:

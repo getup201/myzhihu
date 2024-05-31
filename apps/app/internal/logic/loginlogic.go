@@ -63,7 +63,10 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (*types.LoginResponse, error
 	}
 	err := checkVerificationCode(l.svcCtx.BizRedis, req.Mobile, req.VerificationCode)
 	if err != nil {
-		return nil, err
+		// return nil, err
+		// 比之前的err 加了业务错误信息
+		return nil, xcode.New(100005, err.Error())
+
 	}
 	mobile, err := encrypt.EncMobile(req.Mobile)
 	if err != nil {

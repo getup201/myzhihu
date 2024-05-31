@@ -122,7 +122,6 @@ func checkVerificationCode(rds *redis.Redis, mobile, code string) error {
 	if cacheCode != code {
 		return errors.New("verification code failed")
 		//这样是将错误信息发送给客户端  明天看一下这个怎么写
-		//
 	}
 	// fmt.Println("checkVerificationCode :", code)
 	// fmt.Println("cacheCode :", cacheCode)

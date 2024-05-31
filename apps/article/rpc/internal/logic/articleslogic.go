@@ -40,6 +40,7 @@ func NewArticlesLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Articles
 // 这个逻辑是重量级  缓存 游标分页等知识点
 func (l *ArticlesLogic) Articles(in *pb.ArticlesRequest) (*pb.ArticlesResponse, error) {
 	//处理一些错误逻辑 排除非法数据
+	// SortType为0是发布时间排序 为1是点赞数排序
 	if in.SortType != types.SortPublishTime && in.SortType != types.SortLikeCount {
 		return nil, code.SortTypeInvalid
 	}
@@ -49,7 +50,7 @@ func (l *ArticlesLogic) Articles(in *pb.ArticlesRequest) (*pb.ArticlesResponse, 
 	if in.PageSize == 0 {
 		in.PageSize = types.DefaultPageSize
 	}
-	//请求第一页时
+	//请求第一页时 cursor 为零就是第一页
 	if in.Cursor == 0 {
 		if in.SortType == types.SortPublishTime {
 			in.Cursor = time.Now().Unix()
