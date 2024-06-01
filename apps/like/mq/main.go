@@ -28,6 +28,6 @@ func main() {
 	for _, mq := range logic.Consumers(ctx, svcCtx) {
 		serviceGroup.Add(mq)
 	}
-
+	//service 会阻塞在这里
 	serviceGroup.Start()
 }

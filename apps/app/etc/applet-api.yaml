@@ -27,3 +27,4 @@ WxMiniConf:
 #user rpc  8080
 #article rpc 8787
 #article api 8686
+#like rpc 6060

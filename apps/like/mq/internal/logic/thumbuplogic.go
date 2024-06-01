@@ -25,6 +25,7 @@ func NewThumbupLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ThumbupLo
 	}
 }
 
+// 消费消息的实际执行 可以在这写Kafka消费的逻辑
 func (l *ThumbupLogic) Consume(key, val string) error {
 	fmt.Printf("get key: %s val: %s\n", key, val)
 	return nil
@@ -33,6 +34,6 @@ func (l *ThumbupLogic) Consume(key, val string) error {
 // 消费kafka消息
 func Consumers(ctx context.Context, svcCtx *svc.ServiceContext) []service.Service {
 	return []service.Service{
-		kq.MustNewQueue(svcCtx.Config.KqConsumerConf, NewThumbupLogic(ctx, svcCtx)),
+		kq.MustNewQueue(svcCtx.Config.KqConsumerConf, NewThumbupLogic(ctx, svcCtx)), //传入一个实现了Consume方法的接口  就是这个logic
 	}
 }

@@ -42,11 +42,13 @@ func (l *ArticleLikeNumLogic) updateArticleLikeNum(ctx context.Context, msg *typ
 	if len(msg.Data) == 0 {
 		return nil
 	}
-
+	// fmt.Println("更新点赞数")
 	for _, d := range msg.Data {
+		//只有点赞业务是文章才继续
 		if d.BizID != types.ArticleBizID {
 			continue
 		}
+		//点赞对象id就是文章id
 		id, err := strconv.ParseInt(d.ObjID, 10, 64)
 		if err != nil {
 			logx.Errorf("strconv.ParseInt id: %s error: %v", d.ID, err)
@@ -57,12 +59,13 @@ func (l *ArticleLikeNumLogic) updateArticleLikeNum(ctx context.Context, msg *typ
 			logx.Errorf("strconv.ParseInt likeNum: %s error: %v", d.LikeNum, err)
 			continue
 		}
+		//更新点赞数
 		err = l.svcCtx.ArticleModel.UpdateLikeNum(ctx, id, likeNum)
 		if err != nil {
 			logx.Errorf("UpdateLikeNum id: %d like: %d", id, likeNum)
 		}
 	}
-
+	// fmt.Println("更新成功")
 	return nil
 }
 

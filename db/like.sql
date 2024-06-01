@@ -3,7 +3,7 @@ use beyond_like;
 
 CREATE TABLE `like_record` (
     `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-    `biz_id` varchar(64) NOT NULL DEFAULT '' COMMENT '业务ID',
+    `biz_id` varchar(64) NOT NULL DEFAULT '' COMMENT '业务ID比如点赞的是文章还是评论还是别的',
     `obj_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '点赞对象id',
     `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户ID',
     `like_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型 0:点赞 1:点踩',

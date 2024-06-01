@@ -45,9 +45,9 @@ func (l *ArticleLogic) Consume(_, val string) error {
 	return l.articleOperate(msg)
 }
 
-// 核心方法
+// 核心方法  异步处理 对文章变更进行补偿操作 保证最终一致性  点赞可以参考这里
 func (l *ArticleLogic) articleOperate(msg *types.CanalArticleMsg) error {
-	fmt.Println("调用了articleOperate函数")
+	// fmt.Println("调用了articleOperate函数")
 	if len(msg.Data) == 0 {
 		return nil
 	}
@@ -60,7 +60,8 @@ func (l *ArticleLogic) articleOperate(msg *types.CanalArticleMsg) error {
 		articleId, _ := strconv.ParseInt(d.ID, 10, 64)
 		authorId, _ := strconv.ParseInt(d.AuthorId, 10, 64)
 
-		t, err := time.ParseInLocation("2006-01-02 15:04:05", d.PublishTime, time.Local)
+		var err error
+		t, _ := time.ParseInLocation("2006-01-02 15:04:05", d.PublishTime, time.Local)
 		publishTimeKey := articlesKey(d.AuthorId, 0)
 		likeNumKey := articlesKey(d.AuthorId, 1)
 

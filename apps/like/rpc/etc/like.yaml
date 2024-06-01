@@ -1,5 +1,5 @@
 Name: like.rpc
-ListenOn: 0.0.0.0:8787
+ListenOn: 0.0.0.0:6060
 # 端口号不能冲突
 # Mode设置为test 才能 启动反射服务 这是使用grpcurl才需要的
 # Topic 要配置正确  且Topic要提前创建
