@@ -25,7 +25,8 @@ func NewThumbupLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ThumbupLo
 	}
 }
 
-// 消费消息的实际执行 可以在这写Kafka消费的逻辑
+// 这里的消息来源应该是 canal监听的 like表的变更
+// 消费消息的实际执行  可以在这写Kafka消费的逻辑 跟article一样确保缓存的最终一致性
 func (l *ThumbupLogic) Consume(key, val string) error {
 	fmt.Printf("get key: %s val: %s\n", key, val)
 	return nil

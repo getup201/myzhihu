@@ -22,8 +22,8 @@ var (
 	likeCountRowsExpectAutoSet   = strings.Join(stringx.Remove(likeCountFieldNames, "`id`", "`create_at`", "`create_time`", "`created_at`", "`update_at`", "`update_time`", "`updated_at`"), ",")
 	likeCountRowsWithPlaceHolder = strings.Join(stringx.Remove(likeCountFieldNames, "`id`", "`create_at`", "`create_time`", "`created_at`", "`update_at`", "`update_time`", "`updated_at`"), "=?,") + "=?"
 
-	cacheBeyondLikeLikeCountIdPrefix         = "cache:beyondLike:likeCount:id:"
-	cacheBeyondLikeLikeCountBizIdObjIdPrefix = "cache:beyondLike:likeCount:bizId:objId:"
+	cacheBeyondLikeLikeCountIdPrefix         = "cache:myzhihuLike:likeCount:id:"
+	cacheBeyondLikeLikeCountBizIdObjIdPrefix = "cache:myzhihuLike:likeCount:bizId:objId:"
 )
 
 type (

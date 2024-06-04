@@ -104,6 +104,7 @@ func (l *ArticleLogic) articleOperate(msg *types.CanalArticleMsg) error {
 			return err
 		}
 
+		//聚合文章数据和用户数据
 		esData = append(esData, &types.ArticleEsMsg{
 			ArticleId:   articleId,
 			AuthorId:    authorId,

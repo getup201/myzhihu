@@ -1,3 +1,4 @@
+#like rpc 的yaml配置文件
 Name: like.rpc
 ListenOn: 0.0.0.0:6060
 # 端口号不能冲突
@@ -8,8 +9,18 @@ Etcd:
   Hosts:
   - 127.0.0.1:2379
   Key: like.rpc
+DataSource: root:root1234@tcp(127.0.0.1:3306)/myzhihu_like?parseTime=true
+CacheRedis:
+  - Host: 127.0.0.1:6379
+    Pass:
+    Type: node
+BizRedis:
+  Host: 127.0.0.1:6379
+  Pass:
+  Type: node
   # 生产者配置
 KqPusherConf:
   Brokers:
     - 127.0.0.1:9092
   Topic: topic-myzhihu-like
+
