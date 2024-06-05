@@ -6,6 +6,8 @@ option go_package="./service";
 service Like {
   rpc Thumbup(ThumbupRequest) returns (ThumbupResponse);
   rpc IsThumbup(IsThumbupRequest) returns (IsThumbupResponse);
+  //增加取消点赞功能
+  rpc CancelThumbup(CancelThumbupRequest) returns (CancelThumbupResponse);
 }
 
 message ThumbupRequest {
@@ -20,6 +22,22 @@ message ThumbupResponse {
   int64 objId = 2; // 点赞对象id
   int64 likeNum = 3; // 点赞数
   int64 dislikeNum = 4; // 点踩数
+}
+
+//和点赞的请求和响应一样 只是处理的逻辑不一样
+message CancelThumbupRequest{
+  string bizId = 1; // 业务id
+  int64 objId = 2; // 点赞对象id
+  int64 userId = 3; // 用户id
+  int32 likeType = 4; // 类型
+}
+
+
+message CancelThumbupResponse{
+  string bizId = 1; // 业务id
+  int64 objId = 2; // 点赞对象id
+  int64 likeNum = 3; // 当前点赞数
+  int64 dislikeNum = 4; // 当前点踩数
 }
 
 message IsThumbupRequest {
@@ -37,3 +55,4 @@ message UserThumbup {
   int64 thumbupTime = 2;
   int32 likeType = 3; // 类型
 }
+

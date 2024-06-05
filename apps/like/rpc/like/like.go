@@ -13,15 +13,19 @@ import (
 )
 
 type (
-	IsThumbupRequest  = service.IsThumbupRequest
-	IsThumbupResponse = service.IsThumbupResponse
-	ThumbupRequest    = service.ThumbupRequest
-	ThumbupResponse   = service.ThumbupResponse
-	UserThumbup       = service.UserThumbup
+	CancelThumbupRequest  = service.CancelThumbupRequest
+	CancelThumbupResponse = service.CancelThumbupResponse
+	IsThumbupRequest      = service.IsThumbupRequest
+	IsThumbupResponse     = service.IsThumbupResponse
+	ThumbupRequest        = service.ThumbupRequest
+	ThumbupResponse       = service.ThumbupResponse
+	UserThumbup           = service.UserThumbup
 
 	Like interface {
 		Thumbup(ctx context.Context, in *ThumbupRequest, opts ...grpc.CallOption) (*ThumbupResponse, error)
 		IsThumbup(ctx context.Context, in *IsThumbupRequest, opts ...grpc.CallOption) (*IsThumbupResponse, error)
+		// 增加取消点赞功能
+		CancelThumbup(ctx context.Context, in *CancelThumbupRequest, opts ...grpc.CallOption) (*CancelThumbupResponse, error)
 	}
 
 	defaultLike struct {
@@ -43,4 +47,10 @@ func (m *defaultLike) Thumbup(ctx context.Context, in *ThumbupRequest, opts ...g
 func (m *defaultLike) IsThumbup(ctx context.Context, in *IsThumbupRequest, opts ...grpc.CallOption) (*IsThumbupResponse, error) {
 	client := service.NewLikeClient(m.cli.Conn())
 	return client.IsThumbup(ctx, in, opts...)
+}
+
+// 增加取消点赞功能
+func (m *defaultLike) CancelThumbup(ctx context.Context, in *CancelThumbupRequest, opts ...grpc.CallOption) (*CancelThumbupResponse, error) {
+	client := service.NewLikeClient(m.cli.Conn())
+	return client.CancelThumbup(ctx, in, opts...)
 }

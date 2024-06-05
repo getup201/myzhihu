@@ -31,3 +31,9 @@ func (s *LikeServer) IsThumbup(ctx context.Context, in *service.IsThumbupRequest
 	l := logic.NewIsThumbupLogic(ctx, s.svcCtx)
 	return l.IsThumbup(in)
 }
+
+// 增加取消点赞功能
+func (s *LikeServer) CancelThumbup(ctx context.Context, in *service.CancelThumbupRequest) (*service.CancelThumbupResponse, error) {
+	l := logic.NewCancelThumbupLogic(ctx, s.svcCtx)
+	return l.CancelThumbup(in)
+}

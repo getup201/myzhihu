@@ -58,6 +58,7 @@ func (l *FollowLogic) Follow(in *pb.FollowRequest) (*pb.FollowResponse, error) {
 				"follow_status": types.FollowStatusFollow,
 			})
 		} else {
+			//FollowStatus状态为1是关注 为2是取消关注
 			err = model.NewFollowModel(tx).Insert(l.ctx, &model.Follow{
 				UserID:         in.UserId,
 				FollowedUserID: in.FollowedUserId,
